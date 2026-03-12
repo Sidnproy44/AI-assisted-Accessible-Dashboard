@@ -85,19 +85,24 @@ service worker
 
 --------------------------------------------------------------------------------------------------
 Project Folder Structure
-a11y-dashboard
+ai-accessible-dashboard
 │
 ├── index.html
-├── css
-│   └── styles.css
+├── style.css
+│
 ├── js
 │   ├── app.js
 │   ├── charts.js
-│   └── accessibility.js
-├── components
-│   └── dashboard.js
-└── assets
-
+│   ├── ai.js
+│   ├── voice.js
+│   ├── accessibility.js
+│   └── storage.js
+│
+├── data
+│   └── metrics.json
+│
+└── components
+    └── chat.html
 
 
 
