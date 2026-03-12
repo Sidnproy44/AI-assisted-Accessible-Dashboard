@@ -1,22 +1,21 @@
-function generateInsight(data){
+export function generateInsight(data){
 
 let max=Math.max(...data)
+let min=Math.min(...data)
 
-let avg=data.reduce((a,b)=>a+b)/data.length
+let growth=((data[data.length-1]-data[0])/data[0]*100).toFixed(1)
 
-if(max>350){
+let trend="stable"
 
-return "Sales are rising quickly with strong peak demand."
+if(data[data.length-1] > data[0]) trend="increasing"
+if(data[data.length-1] < data[0]) trend="decreasing"
 
-}
-
-if(avg>200){
-
-return "Sales show steady growth across the months."
-
-}
-
-return "Sales performance is relatively low."
+return `
+Sales trend is ${trend}.
+Highest sales reached ${max}.
+Lowest sales were ${min}.
+Overall growth is ${growth}%.
+`
 
 }
 
