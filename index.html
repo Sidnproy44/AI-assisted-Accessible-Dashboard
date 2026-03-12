@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Accessible Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="header" role="banner">
+
+<h1>AI Assisted Accessible Dashboard</h1>
+
+<div class="controls">
+
+<button id="themeToggle">
+Toggle Dark Mode
+</button>
+
+<button id="voiceBtn">
+Voice Control
+</button>
+
+<button id="scanBtn">
+Scan Accessibility
+</button>
+
+</div>
+
+</header>
+
+<div class="dashboard">
+
+<nav class="sidebar" aria-label="Dashboard navigation">
+
+<ul>
+
+<li><button class="nav-btn">Overview</button></li>
+<li><button class="nav-btn">Analytics</button></li>
+<li><button class="nav-btn">Reports</button></li>
+
+</ul>
+
+</nav>
+
+<main id="main" class="main">
+
+<section class="cards">
+
+<div class="card">
+<h2>Total Sales</h2>
+<p id="salesValue">$45,200</p>
+</div>
+
+<div class="card">
+<h2>Active Users</h2>
+<p id="usersValue">1,250</p>
+</div>
+
+<div class="card">
+<h2>Growth</h2>
+<p id="growthValue">22%</p>
+</div>
+
+</section>
+
+<section class="chart-section">
+
+<h2>Monthly Sales</h2>
+
+<canvas
+id="salesChart"
+role="img"
+aria-label="Monthly sales chart">
+</canvas>
+
+</section>
+
+</main>
+
+<aside class="insights">
+
+<h2>AI Insights</h2>
+
+<p id="aiInsight" aria-live="polite">
+Loading insights...
+</p>
+
+<div id="chatContainer"></div>
+
+</aside>
+
+</div>
+
+<script type="module" src="./js/app.js"></script>
+
+</body>
+</html>
