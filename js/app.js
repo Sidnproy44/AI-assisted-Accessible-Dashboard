@@ -4,15 +4,35 @@ import { startVoice } from "./voice.js"
 import { runAudit } from "./accessibility.js"
 import { savePreference, getPreference } from "./storage.js"
 
-let salesData=[120,190,300,250,400,380]
+document.addEventListener("DOMContentLoaded", async () => {
 
+let res = await fetch("./data/metrics.json")
+let data = await res.json()
+
+let salesData = data.sales
+let usersData = data.users
+
+// Update cards
+document.getElementById("salesValue").innerText =
+salesData.reduce((a,b)=>a+b)
+
+document.getElementById("usersValue").innerText =
+usersData[usersData.length-1]
+
+// Growth
+let growth = ((salesData.at(-1)-salesData[0])/salesData[0]*100).toFixed(1)
+
+document.getElementById("growthValue").innerText = growth+"%"
+
+// Chart
 loadChart(salesData)
 
-document.getElementById("aiInsight").innerText=
+// AI insight
+document.getElementById("aiInsight").innerText =
 generateInsight(salesData)
 
-
-document.getElementById("themeToggle").onclick=()=>{
+// Dark mode
+document.getElementById("themeToggle").onclick = () => {
 
 document.body.classList.toggle("dark")
 
@@ -23,46 +43,38 @@ document.body.classList.contains("dark")
 
 }
 
-
-let savedTheme=getPreference("theme")
+let savedTheme = getPreference("theme")
 
 if(savedTheme==="true"){
-
 document.body.classList.add("dark")
-
 }
 
+// Voice
+document.getElementById("voiceBtn").onclick = startVoice
 
-document.getElementById("voiceBtn").onclick=()=>{
+// Accessibility
+document.getElementById("scanBtn").onclick = runAudit
 
-startVoice()
+// Sidebar buttons
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+btn.onclick = () => alert(btn.innerText + " clicked")
+})
 
-}
-
-
-document.getElementById("scanBtn").onclick=()=>{
-
-runAudit()
-
-}
-
-
-fetch("./components/chat.html")
+// Chat UI
+let html = await fetch("./components/chat.html")
 .then(res=>res.text())
-.then(html=>{
 
-document.getElementById("chatContainer").innerHTML=html
+document.getElementById("chatContainer").innerHTML = html
 
-document.getElementById("sendChat").onclick=()=>{
+document.getElementById("sendChat").onclick = () => {
 
-let input=document.getElementById("chatInput")
+let input = document.getElementById("chatInput")
+let box = document.getElementById("chatMessages")
 
-let response=askAI(input.value,salesData)
+let response = askAI(input.value, salesData)
 
-let box=document.getElementById("chatMessages")
-
-box.innerHTML+=`<p><b>You:</b> ${input.value}</p>`
-box.innerHTML+=`<p><b>AI:</b> ${response}</p>`
+box.innerHTML += `<p><b>You:</b> ${input.value}</p>`
+box.innerHTML += `<p><b>AI:</b> ${response}</p>`
 
 input.value=""
 
